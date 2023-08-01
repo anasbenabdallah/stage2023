@@ -6,10 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
-import HomeIcon from "@mui/icons-material/Home";
+import { blueGrey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 
-//import zustand
 import { useAppStore } from "../../../appStore";
 import { Stack } from "@mui/system";
 import { Button } from "@mui/material";
@@ -19,18 +18,16 @@ const AppBar = styled(
   {}
 )(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: "white",
-  color: "black",
+  backgroundColor: blueGrey[500],
+  color: "white",
 }));
 
 const AdminNavbar = () => {
-  //open and close the drawer
   const updateOpen = useAppStore((state) => state.updateOpen);
   const dopen = useAppStore((state) => state.dopen);
 
   const navigate = useNavigate();
 
-  //function to handle button click and route to homepage
   const handleHomePageClick = () => {
     navigate("/adminDashboard");
   };
@@ -39,13 +36,13 @@ const AdminNavbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" elevation={1}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Stack flexDirection={"row"} alignItems={"center"}>
+          <Stack flexDirection="row" alignItems="center">
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              sx={{ mr: 2 }}
+              sx={{ mr: 2, color: "black" }} // Set the color of the menu icon to white
               onClick={() => updateOpen(!dopen)}
             >
               <MenuIcon />
@@ -54,7 +51,10 @@ const AdminNavbar = () => {
               variant="h5"
               noWrap
               component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                color: "black", // Set the color of the dashboard text to white
+              }}
             >
               Dashboard
             </Typography>

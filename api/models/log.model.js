@@ -2,26 +2,25 @@ const mongoose = require("mongoose");
 
 const logSchema = new mongoose.Schema(
   {
-    logLevel: {
-      type: String,
-      enum: ["E", "F"], // Only allows values "E" (Error) or "F" (Fatal)
-      required: true,
-    },
-    component: {
+    tag: {
       type: String,
       required: true,
     },
-    logMessage: {
+    pattern: {
       type: String,
       required: true,
     },
-    event: {
+    ticketjira: {
       type: String,
       required: true,
-    },
-    solution: {
-      type: String,
-      default: "Still not found",
+      validate: {
+        validator: function (value) {
+          // Use a regular expression to validate if the value is a valid URL
+          const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)*$/;
+          return urlPattern.test(value);
+        },
+        message: "Invalid Jira ticket URL format",
+      },
     },
   },
   { timestamps: true }

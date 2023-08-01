@@ -4,11 +4,10 @@ import { Dialog, DialogContent, TextField, Button, DialogActions, DialogTitle } 
 
 const EditPopup = ({ logId, onClose }) => {
   const [logData, setLogData] = useState({
-    logLevel: '',
-    component: '',
-    logMessage: '',
-    event: '',
-    solution: '',
+    tag: '',
+    pattern: '',
+    ticketjira: '',
+ 
   });
 
   useEffect(() => {
@@ -52,49 +51,32 @@ const EditPopup = ({ logId, onClose }) => {
         <form>
           <TextField
             fullWidth
-            label="Log Level"
-            name="logLevel"
-            value={logData.logLevel}
+            label="Tag"
+            name="tag"
+            value={logData.tag}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
           />
           <TextField
             fullWidth
-            label="Component"
-            name="component"
-            value={logData.component}
+            label="Pattern"
+            name="pattern"
+            value={logData.pattern}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
           />
           <TextField
             fullWidth
-            label="Log Message"
-            name="logMessage"
-            value={logData.logMessage}
+            label="Jira Ticket"
+            name="jiraticket"
+            value={logData.ticketjira}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
           />
-          <TextField
-            fullWidth
-            label="Event"
-            name="event"
-            value={logData.event}
-            onChange={handleChange}
-            variant="outlined"
-            margin="normal"
-          />
-          <TextField
-            fullWidth
-            label="Solution"
-            name="solution"
-            value={logData.solution}
-            onChange={handleChange}
-            variant="outlined"
-            margin="normal"
-          />
+      
         </form>
       </DialogContent>
       <DialogActions>

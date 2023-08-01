@@ -20,8 +20,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions/AuthAction";
 import { useNavigate } from "react-router-dom";
-
-
+import { blueGrey } from "@mui/material/colors";
 
 const drawerWidth = 240;
 
@@ -32,6 +31,7 @@ const openedMixin = (theme) => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: "hidden",
+  backgroundColor: blueGrey[500], // Apply grey color to the background
 });
 
 const closedMixin = (theme) => ({
@@ -144,7 +144,7 @@ const AdminDrawer = () => {
                   >
                     {icon}
                   </ListItemIcon>
-                  <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText primary={name} sx={{ opacity: open ? 1 : 0, color: 'white' }} /> {/* Set text color to white */}
                 </ListItemButton>
               </Link>
             </ListItem>

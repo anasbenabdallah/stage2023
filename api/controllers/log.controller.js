@@ -4,15 +4,12 @@ const mongoose = require("mongoose");
 // Add a log
 async function addLog(req, res) {
     try {
-      const { companyId, logLevel, component, logMessage, event, solution } = req.body;
+      const {tag,pattern,ticketjira,} = req.body;
   
       const newLog = new Log({
-        logLevel,
-        component,
-        logMessage,
-        event,
-        solution,
-        companyId, // Adding the company ID to the log document
+        tag,
+        pattern,
+        ticketjira,
       });
   
       const savedLog = await newLog.save();
@@ -25,7 +22,7 @@ async function addLog(req, res) {
 
 // Edit a log
 const editLog = async (req, res) => {
-    const { logLevel, component, logMessage, event, solution } = req.body;
+    const {tag,pattern,ticketjira,} = req.body;
     const logId = req.params.id;
   
     // Make sure the logId is a valid MongoDB ObjectId
@@ -35,11 +32,9 @@ const editLog = async (req, res) => {
   
     try {
       const log = await Log.findByIdAndUpdate(logId, {
-        logLevel,
-        component,
-        logMessage,
-        event,
-        solution,
+        tag,
+        pattern,
+        ticketjira,
       }, { new: true });
   
       if (!log) {
@@ -95,3 +90,4 @@ module.exports = {
   getLogsById,
   getLogs,
 };
+
