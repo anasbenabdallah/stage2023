@@ -113,78 +113,7 @@ const logout = async (req, res) => {
     return res.status(500).json(error);
   }
 };
-// ==============================|| forgetpassword ||============================== //
-/*
-const forgetpassword = async (req, res) => {
-  try {
-    const email = req.body.email;
-    const user = await userSchema.findOne({ email: email });
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    const resetToken = jwt.sign(
-      { userId: user._id },
-      process.env.passwordToken,
-      {
-        expiresIn: "1h",
-      }
-    );
-    user.resetToken = resetToken;
-    await user.save();
 
-    // Send email with password reset link
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-    const mailOptions = {
-      from: process.env.EMAIL_ADDRESS,
-      to: email,
-      subject: "Password Reset",
-      html: `<p>Please click the following link to reset your password:</p><a href="http://localhost:3000/reset-password/${resetToken}">http://localhost:3000/reset-password/${resetToken}</a>`,
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({ error: "Error sending email" });
-      } else {
-        console.log("Email sent: " + info.response);
-        return res.status(200).json({ message: "Password reset email sent" });
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
-  }
-};
-*/
-// ==============================|| reset password ||============================== //
-/*const resetpassword = async (req, res) => {
-  try {
-    const resetToken = req.body.resetToken;
-    const Password = req.body.password;
-    const user = await userSchema.findOne({ resetToken: resetToken });
-    if (!user) {
-      return res.status(404).json({ error: "Invalid reset token" });
-    }
-    const decoded = jwt.verify(resetToken, process.env.passwordToken);
-    if (decoded.userId !== user._id.toString()) {
-      return res.status(404).json({ error: "Invalid reset token" });
-    }
-    user.password = await bcrypt.hash(Password, 10);
-    user.resetToken = undefined;
-    await user.save();
-    return res.status(200).json({ message: "Password reset successfully" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
-  }
-};
-*/
-// ==============================|| signInWithGoogle ||============================== //
 
 module.exports = {
   signUp,

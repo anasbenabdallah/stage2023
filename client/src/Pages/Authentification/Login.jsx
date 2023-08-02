@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RegisterLink from "@mui/material/Link";
-import ForgetPasswordLink from "@mui/material/Link";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -15,7 +15,7 @@ import { login } from "../../redux/actions/AuthAction";
 import {
   Button,
   Checkbox,
-  Divider,
+  
   FormControlLabel,
   Grid,
   InputLabel,
@@ -39,7 +39,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <LinkCopyright color="inherit">SKILLRISE</LinkCopyright>{" "}
+      <LinkCopyright color="inherit">Sagem</LinkCopyright>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -62,14 +62,19 @@ const Login = () => {
     const data = await dispatch(login({ email, password }));
     console.log(data);
     setIsActionCompleted(true);
+    if (data) {
+      setTimeout(() => {
+        window.location.reload(); // Reload the page after 2 seconds if data exists
+      }, 2000); // 2000 milliseconds = 2 seconds
+    }
   };
 
   useEffect(() => {
     if (myData) {
       console.log("zzzz");
       const timeoutId = setTimeout(() => {
-        if (myData.role == "admin") navigate("/adminDashboard");
-        else if ( myData.role == "company") {
+        if (myData.role === "admin") navigate("/adminDashboard");
+        else if ( myData.role === "company") {
           navigate("/adminDashboard");
         }
         return () => clearTimeout(timeoutId); // clear the timeout when the component unmounts
@@ -81,7 +86,7 @@ const Login = () => {
   console.log(isAuthenticated);
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/adminDashboard");
     }
   }, []);
 
@@ -100,7 +105,7 @@ const Login = () => {
           <Grid item xs={12}>
             <Stack spacing={1} display={"flex"} alignItems={"center"}>
               <Typography component="h1" variant="h1" color="primary">
-                SKILLRISE
+                Sagem
               </Typography>
             </Stack>
           </Grid>
@@ -147,15 +152,7 @@ const Login = () => {
                 }
                 label={<Typography variant="h6">Remember me</Typography>}
               />
-              <ForgetPasswordLink
-                underline="hover"
-                variant="h6"
-                color={"secondary"}
-                component={Link}
-                to="/forgetpassword"
-              >
-                Forgot Password?
-              </ForgetPasswordLink>
+      
             </Stack>
           </Grid>
           <Grid item xs={12}>
@@ -190,11 +187,7 @@ const Login = () => {
               </RegisterLink>
             </Stack>
           </Grid>
-          <Grid item xs={12}>
-            <Divider>
-              <Typography variant="caption">Login with</Typography>
-            </Divider>
-          </Grid>
+    
         </Grid>
         <Copyright />
       </Stack>

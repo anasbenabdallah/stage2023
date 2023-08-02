@@ -7,7 +7,6 @@ import {
   Toolbar,
   Stack,
   Avatar,
-  Box,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import skillriselogo from "../../../../src/images/logo.png";

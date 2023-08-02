@@ -2,7 +2,7 @@
 import { merge } from 'lodash';
 
 // project import
-import Badge from './Badge';
+
 import Button from './Button';
 import CardContent from './CardContent';
 import Checkbox from './Checkbox';
@@ -23,7 +23,7 @@ import Typography from './Typography';
 export default function ComponentsOverrides(theme) {
     return merge(
         Button(theme),
-        Badge(theme),
+     
         CardContent(),
         Checkbox(theme),
         Chip(theme),

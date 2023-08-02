@@ -46,8 +46,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [firstname, SetFirstName] = useState("");
-  const [lastname, SetLastName] = useState("");
+ 
   const [companyName, setCompanyName] = useState("");
 
   const [email, SetEmail] = useState("");
@@ -59,11 +58,8 @@ const Register = () => {
     e.preventDefault();
     let data; // declare data using let
 
-    if (role === "user") {
-      data = await dispatch(
-        register({ firstname, lastname, email, password, role })
-      );
-    } else if (role === "company") {
+   
+    if (role === "company") {
       data = await dispatch(register({ companyName, email, password, role }));
     }
     console.log(data);
@@ -106,7 +102,7 @@ const Register = () => {
               <Grid item xs={12} md={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="Username-signup">
-                    Username Name
+                    Username
                   </InputLabel>
                   <OutlinedInput
                     id="companyname-login"
