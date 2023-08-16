@@ -1,0 +1,15 @@
+﻿tag;pattern;ticketjira
+wificond;Unexpected empty scan result;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;Scan is not started. Ignore abort request;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;Scan aborted;https://jira-avs.rmm.scom/browse/MEO377-1708
+wlan0;notify mac changed done;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+dhd_set_suspend;Remove extra suspend setting;https://jira-avs.rmm.scom/browse/MEO377-1708
+dhd_set_suspend;lpas failed:-23;https://jira-avs.rmm.scom/browse/MEO377-1708
+ wl_android_priv_cmd;"Android private cmd ""SETSUSPENDMODE 1"" on wlan0";https://jira-avs.rmm.scom/browse/MEO377-1708
+dhd_set_suspend;force extra Suspend setting;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;dhd_get_suspend_bcn_li_dtim beacon=100 bcn_li_dtim=9 DTIM=1 Listen=10;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;dhd_set_suspend lpas failed -23;https://jira-avs.rmm.scom/browse/MEO377-1288
+wificond; NL80211_CMD_TRIGGER_SCAN failed: Try again;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;NL80211_CMD_TRIGGER_SCAN failed: Device or resource busy;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;ETHER_TYPE_802_1X[wlan0] [RX]: EAPOLPacket, 4-way handshake, M1;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;ETHER_TYPE_802_1X[wlan0] [TX]: EAPOLPacket, 4-way handshake, M2 TX_PKTHASH:0x0TX_PKT_FATE:N/A;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708

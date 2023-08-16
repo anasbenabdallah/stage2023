@@ -1,0 +1,43 @@
+﻿tag;pattern;ticketjira
+wificond;Unexpected empty scan result;_
+wificond;Scan is not started. Ignore abort request;_
+wificond;Scan aborted;_
+wlan0;notify mac changed done;_
+dhd_set_suspend;Remove extra suspend setting;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+dhd_set_suspend;lpas failed:-23;https://jira-avs.rmm.scom/browse/MEO377-1708
+ wl_android_priv_cmd;"Android private cmd ""SETSUSPENDMODE 1"" on wlan0";https://jira-avs.rmm.scom/browse/MEO377-1708
+dhd_set_suspend;force extra Suspend setting;https://jira-avs.rmm.scom/browse/MEO377-1708
+_;dhd_get_suspend_bcn_li_dtim beacon=100 bcn_li_dtim=9 DTIM=1 Listen=10;https://jira-avs.rmm.scom/browse/MEO377-1708
+_;dhd_set_suspend lpas failed -23;https://jira-avs.rmm.scom/browse/MEO377-1708
+wificond;NL80211_CMD_TRIGGER_SCAN failed: Try again;https://jira-avs.rmm.scom/browse/MEO377-1288
+wificond;NL80211_CMD_TRIGGER_SCAN failed: Device or resource busy;_
+_;ETHER_TYPE_802_1X[wlan0] [RX]: EAPOLPacket, 4-way handshake, M1;_
+_;ETHER_TYPE_802_1X[wlan0] [TX]: EAPOLPacket, 4-way handshake, M2 TX_PKTHASH:0x0TX_PKT_FATE:N/A;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+_;CFG80211-ERROR\) wl_cfg80211_scan_abort;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+_;scan abort failed. Ret:-25;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+_;wl_cfg80211_set_power_mgmt;https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+_;Error \(-23\);https://jira-avs.rmm.scom/browse/MEO377-1288 or https://jira-avs.rmm.scom/browse/MEO377-1708
+wl_android_priv_cmd;"Android private cmd ""BTCOEXMODE 2"" on wlan0";https://jira-avs.rmm.scom/browse/MEO377-1288
+wl_android_priv_cmd;BTCOEXSCAN-STOP;https://jira-avs.rmm.scom/browse/MEO377-1288
+wl_android_priv_cmd;BTCOEXSCAN-START;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;AtvRemote.BleDeviceConnection: Failed to successfully disconnect from;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;btm_sec_disconnected clearing pending flag handle:64 reason:8;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;Peer 80:f1:f1:5d:80:dd : ACL Disconnected;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;BroadcastRecord{31839e7 u0 com.google.android.gms.deviceconnection.input_device_disconnected} to user 0;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;Intent { act=com.google.android.gms.deviceconnection.input_device_disconnected flg=0x10 pkg=com.google.android.gms;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;BroadcastRecord{d248d83 u0 android.bluetooth.device.action.ACL_DISCONNECTED} to user 0;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;Intent { act=android.bluetooth.device.action.ACL_DISCONNECTED flg=0x5000010;https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;"Skipping ""android.hardware.bluetooth.audio@2.0::IBluetoothAudioProvidersFactory/default"": cannot be fetched from service manager";https://jira-avs.rmm.scom/login.jsp?permissionViolation=true&os_destination=%2Fsecure%2Fattachment%2F109818%2FTHIBAULT_bugreport-Stream_V2-RTT4.220918.001-2023-04-26-20-35-29.txt&page_caps=&user_role=
+_;"Skipping""android.hardware.bluetooth@1.0::IBluetoothHci/default"": cannot be fetched from service manager";_
+_;android.hardware.bluetooth.audio@2.0::IBluetoothAudioProvidersFactory/default does not exist, or no permission to connect;_
+_;android.hardware.bluetooth.audio@2.0::IBluetoothAudioProvidersFactory/default' failed: exit code 128;_
+_;android.hardware.bluetooth@1.0::IBluetoothHci/default does not exist,or no permission to connect;_
+_;android.hardware.bluetooth@1.0::IBluetoothHci/default' failed: exit code 128;_
+_;Adding dir /data/misc/bluetooth/logs \(recursive: 1;_
+_;can't Register GATT client, MAX client reached: 32;_
+_;Starting timeout error;_
+Bcm-nxs-b;[hpd]:client: 1484: issuing DISCONNECTED;_
+Bcm-nxs-b;[hpd]:client: 876: issuing DISCONNECTED;_
+Bcm-hwc;notify hotplug DISCONNECTED \(mode=1\);_
+_;MediaCodecVideoDecoderException;_
+_;Decoder failed: OMX.bcm.vdec.avc;_
