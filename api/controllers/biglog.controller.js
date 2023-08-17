@@ -23,22 +23,32 @@ async function getUniqueLogsAndCounts(req, res) {
     const logs = await BigLog.find({});
 
     const logCounts = {};
+    let totalLogs = 0; // Initialize totalLogs counter
+
     logs.forEach((log) => {
       const logKey = log.logmessage;
-      logCounts[logKey] = (logCounts[logKey] || 0) + 1;
+
+      if (!logCounts.hasOwnProperty(logKey)) {
+        logCounts[logKey] = 1;
+      } else {
+        logCounts[logKey]++;
+      }
+
+      totalLogs++; // Increment totalLogs for each log message
     });
 
     const uniqueLogs = Object.keys(logCounts);
 
     res.json({
       logCounts,
-      uniqueLogs,
+      totalLogs, // Include the total number of log messages
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error retrieving logs and counts." });
   }
 }
+
 
 module.exports = {
   getbigLogs,
