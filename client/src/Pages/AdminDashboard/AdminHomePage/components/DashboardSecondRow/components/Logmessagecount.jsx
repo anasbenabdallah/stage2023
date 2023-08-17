@@ -12,12 +12,14 @@ import {
 
 const LogCountsScatterPlot = () => {
   const [logCounts, setLogCounts] = useState([]);
+  const [totalLogs, setTotalLogs] = useState(0); // State for total logs
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/biglog/getlogmessage")
       .then((response) => {
         setLogCounts(response.data.logCounts);
+        setTotalLogs(response.data.totalLogs); // Set total logs from response
       })
       .catch((error) => {
         console.error("Error fetching log counts:", error);
@@ -33,7 +35,8 @@ const LogCountsScatterPlot = () => {
 
   return (
     <div>
-      <h2>Log Message Count (Scatter Plot)</h2>
+      <h2>Log Message Count </h2>
+      <h5>Total Messages: {totalLogs}</h5> {/* Display total messages */}
       <ScatterChart width={800} height={400}>
         <CartesianGrid />
         <XAxis dataKey="logMessage" type="category" />

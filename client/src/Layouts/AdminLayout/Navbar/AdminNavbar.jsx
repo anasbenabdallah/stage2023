@@ -31,6 +31,8 @@ const AdminNavbar = () => {
   const handleHomePageClick = () => {
     navigate("/adminDashboard");
   };
+  const storedCompanyName = JSON.parse(localStorage.getItem('user')).companyName; // Retrieve company name from local storage
+  const companyName = storedCompanyName || "Admin";
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -59,6 +61,18 @@ const AdminNavbar = () => {
               Sagemcom
             </Typography>
           </Stack>
+          <Typography
+  variant="h4"
+  noWrap
+  component="div"
+  sx={{
+    display: { xs: "none", sm: "block" },
+    color: "white", // Set the text color to white
+  }}
+>
+  {companyName} {/* Display the company name */}
+</Typography>
+
           <Button
             variant="contained"
             size="large"
