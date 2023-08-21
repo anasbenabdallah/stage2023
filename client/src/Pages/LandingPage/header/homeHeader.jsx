@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "white",
+    backgroundColor: "#E0FFFF",
   },
   Typography: { color: "black" },
 }));
