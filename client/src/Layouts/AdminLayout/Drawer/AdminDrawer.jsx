@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions/AuthAction";
 import { useNavigate } from "react-router-dom";
 import { blueGrey } from "@mui/material/colors";
+import myImage from "../../../images/sagemcom.png";
 
 
 const drawerWidth = 240;
@@ -137,6 +138,7 @@ const AdminDrawer = () => {
                   }}
                   onClick={name === "Logout" ? handleLogout : undefined}
                 >
+                  
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
@@ -150,9 +152,21 @@ const AdminDrawer = () => {
                 </ListItemButton>
               </Link>
             </ListItem>
+            
           ))}
         </List>
+        <img
+          src={myImage}
+          alt="My Image"
+          style={{
+            maxWidth: "100%", // Make the image expand to its container width
+            height: "auto",   // Automatically adjust the height based on the width
+            margin: "300px auto 40px",
+            display: "block",
+          }}
+        />
       </Drawer>
+      
     </Box>
   );
 };

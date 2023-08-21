@@ -39,8 +39,6 @@ const LogActivitiesCalendarHeatmap = () => {
           startDate={new Date(2023, 0)} // Start from January 2023
           endDate={new Date(2023, 12)} // Up to December 2023
           values={heatmapData}
-      
-      
           showWeekdayLabels={true}
           titleForValue={(value) =>
             value ? `${value.count} activities` : "No activity"

@@ -12,31 +12,44 @@ import {
 
 const LogCountsScatterPlot = () => {
   const [logCounts, setLogCounts] = useState([]);
-  const [totalLogs, setTotalLogs] = useState(0); // State for total logs
+  const [totalLogs, setTotalLogs] = useState(0);
+  const [filterThreshold, setFilterThreshold] = useState(0); // State for filter threshold
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/biglog/getlogmessage")
       .then((response) => {
         setLogCounts(response.data.logCounts);
-        setTotalLogs(response.data.totalLogs); // Set total logs from response
+        setTotalLogs(response.data.totalLogs);
       })
       .catch((error) => {
         console.error("Error fetching log counts:", error);
       });
   }, []);
 
-  const logCountsData = Object.entries(logCounts).map(
-    ([logMessage, count]) => ({
+  const filteredLogCounts = Object.entries(logCounts)
+    .filter(([_, count]) => count > filterThreshold)
+    .map(([logMessage, count]) => ({
       logMessage,
       count,
-    })
-  );
+    }));
+
+  const handleFilterChange = (event) => {
+    setFilterThreshold(parseInt(event.target.value, 10));
+  };
 
   return (
     <div>
-      <h2>Log Message Count </h2>
-      <h5>Total Messages: {totalLogs}</h5> {/* Display total messages */}
+      <h2>Log Message Count</h2>
+      <div>
+        <label>Count greater then : </label>
+        <input
+          type="number"
+          value={filterThreshold}
+          onChange={handleFilterChange}
+        />
+      </div>
+      <h5>Total Messages: {totalLogs}</h5>
       <ScatterChart width={800} height={400}>
         <CartesianGrid />
         <XAxis dataKey="logMessage" type="category" />
@@ -46,7 +59,7 @@ const LogCountsScatterPlot = () => {
           formatter={(value) => [`${value.toString()} occurrences`, "Count"]}
         />
         <Legend />
-        <Scatter data={logCountsData} fill="#8884d8" />
+        <Scatter data={filteredLogCounts} fill="#8884d8" />
       </ScatterChart>
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  LineChart,
-  Line,
+  ScatterChart,
+  Scatter,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 
-const LogCountLineChart = ({ type }) => {
+const LogCountScatterPlot = ({ type }) => {
   const [logCounts, setLogCounts] = useState([]);
 
   useEffect(() => {
@@ -32,36 +32,43 @@ const LogCountLineChart = ({ type }) => {
   return (
     <div>
       <h2 style={{ marginBottom: "1rem" }}>
-        Log Count Line Chart - {type === "TID" ? "Thread ID" : "Process ID"}
+        Log Count Scatter Plot - {type === "TID" ? "Thread ID" : "Process ID"}
       </h2>
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data}>
+        <ScatterChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="id"
+            type="number"
+            name={type}
             label={{ value: `${type}`, position: "insideBottomRight", dy: 10 }}
           />
           <YAxis
+            dataKey="count"
+            type="number"
+            name="Log Count"
             label={{
               value: "Log Count",
               angle: -90,
               position: "insideLeft",
-              dx: -10,
+              dx: -5,
             }}
           />
           <Tooltip
             labelFormatter={(value) => `ID: ${value}`} // Customize the label format
-            formatter={(value, name) => [`${value} logs`, name]} // Customize the value format
+            formatter={(value, name, entry) => [
+              `${entry.payload.count} logs`, // Use entry.payload.count to display the count value
+              name,
+            ]}
           />
-          <Line
-            type="monotone"
-            dataKey="count"
-            stroke="#00FF00" // Green color for the line
+          <Scatter
+            data={data}
+            fill="#00FF00" // Green color for the scatter points
           />
-        </LineChart>
+        </ScatterChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default LogCountLineChart;
+export default LogCountScatterPlot;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+
 import {
   Table,
   TableBody,
@@ -12,6 +14,7 @@ import {
   Dialog,
   DialogContent,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import EditPopup from "./editlogspopup"; // Import the EditPopup component
@@ -29,6 +32,7 @@ const LogsTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentMatchingPairsPage, setCurrentMatchingPairsPage] = useState(1);
   const [addLogsPopupOpen, setAddLogsPopupOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
 
   const handlePageChange = (event, newPage) => {
@@ -42,6 +46,7 @@ const LogsTable = () => {
 
     try {
       localStorage.setItem("dataDeleted", "false");
+      setIsLoading(true);
 
       const response = await axios.get(
         "http://localhost:8000/matches/getmatches",
@@ -50,11 +55,12 @@ const LogsTable = () => {
         }
       );
    ;
-
-      
-      setMatchingPairs(response.data.matchingPairs);
+setMatchingPairs(response.data.matchingPairs);
     } catch (error) {
       console.error("Error generating data:", error);
+    }
+    finally {
+      setIsLoading(false);
     }
   };
   // Define the fetchLogs function outside of the useEffect hook
@@ -85,6 +91,7 @@ const LogsTable = () => {
   };
   const handleDeleteMatchingPairs = async () => {
     try {
+      setIsLoading(true); 
       const response = await axios.delete(
         "http://localhost:8000/matches/delete-matches",
         {
@@ -101,6 +108,8 @@ const LogsTable = () => {
       }
     } catch (error) {
       console.error("Error deleting matching pairs:", error);
+    }finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -156,9 +165,9 @@ const LogsTable = () => {
 
   return (
     <TableContainer component={Paper} elevation={0} variant="outlined">
-      {/* Add the button for CSV file upload */}
+    
       <div style={buttonContainerStyle}>
-        {/* Upload CSV button */}
+  
         <Button
           variant="contained"
           component="label"
@@ -167,7 +176,7 @@ const LogsTable = () => {
           Upload CSV
           <input type="file" accept="*" hidden onChange={handleFileUpload} />
         </Button>
-        {/* Add Logs button */}
+      
         <Button
           variant="contained"
           onClick={handleOpenAddLogsPopup}
@@ -182,7 +191,7 @@ const LogsTable = () => {
             <TableCell>Tag</TableCell>
             <TableCell>pattern</TableCell>
             <TableCell>Jira Ticket</TableCell>
-            <TableCell>Action</TableCell> {/* New column for Edit button */}
+            <TableCell>Action</TableCell> 
           </TableRow>
         </TableHead>
         <TableBody>
@@ -258,12 +267,18 @@ const LogsTable = () => {
         Delete Matching Pairs
       </Button>
         </div>
-     
+        {isLoading ? (
+          <TableRow>
+          <TableCell colSpan={7} align="center">
+            <CircularProgress />
+          </TableCell>
+        </TableRow>
+      ) : (
      <MatchingPairsTables
      matchingPairs={matchingPairs}
      currentMatchingPairsPage={currentMatchingPairsPage}
      matchingPairsPerPage={matchingPairsPerPage}
-     />
+     />)}
       <Pagination
         count={Math.ceil(matchingPairs.length / matchingPairsPerPage)}
         page={currentMatchingPairsPage}

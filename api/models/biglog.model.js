@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const biglogSchema = new mongoose.Schema({
+  ProjectName:{ type: String, required:false },
   date: { type: String, required: true },
   timestamp: { type: String, required: true },
   TID: { type: String, required: true },//Thread ID

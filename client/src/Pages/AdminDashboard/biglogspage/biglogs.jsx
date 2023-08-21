@@ -11,8 +11,15 @@ import {
   TableBody,
   CircularProgress,
   TextField,
-  FormControl, InputLabel, Select, MenuItem
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl, InputLabel, Select, MenuItem,
+
 } from '@mui/material';
+
 
 import Pagination from '@mui/material/Pagination';
 
@@ -23,6 +30,8 @@ const LogsTable = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchLogMessage, setSearchLogMessage] = useState('');
   const [filterLogLevel, setFilterLogLevel] = useState('');
+  const [projectName, setProjectName] = useState('');
+  const [open, setOpen] = useState(false); // State for the pop-up window
 
 
   const handleFileUpload = async (event) => {
@@ -30,6 +39,8 @@ const LogsTable = () => {
       const file = event.target.files[0];
       const formData = new FormData();
       formData.append('txtFile', file);
+
+      setOpen(true); // Open the pop-up window
 
       await axios.post('http://localhost:8000/biglog/uploadAll', formData, {
         withCredentials: true,
@@ -42,6 +53,13 @@ const LogsTable = () => {
     } catch (error) {
       console.error('Error uploading Text file:', error);
     }
+  };
+  
+  const handleConfirmProject = () => {
+    setOpen(false); // Close the pop-up window
+    // Save the project name and fetch logs again
+    localStorage.setItem('projectName', projectName);
+    fetchLogs();
   };
 
   const fetchLogs = async (page) => {
@@ -80,6 +98,10 @@ const LogsTable = () => {
   
 
   useEffect(() => {
+    const storedProjectName = localStorage.getItem('projectName');
+    if (storedProjectName) {
+      setProjectName(storedProjectName);
+    }
     fetchLogs();
   }, []);
 
@@ -87,19 +109,35 @@ const LogsTable = () => {
     setCurrentPage(newPage);
   };
 
+  const handleDeleteAllLogs = async () => {
+    try {
+      await axios.delete('http://localhost:8000/biglog/delete', {
+        withCredentials: true,
+      });
+      fetchLogs(currentPage); // Refresh logs after deletion
+    } catch (error) {
+      console.error('Error deleting all logs:', error);
+    }
+  };
+  const deletematchesButtonStyle = {
+    backgroundColor: "#DC143C", 
+    color: "#000000", 
+  };
   return (
     <TableContainer component={Paper} elevation={0} variant="outlined">
 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
   <div style={{ display: 'flex', alignItems: 'center' }}>
-    <TextField
-      label="Search Log Message"
-      variant="outlined"
-      size="small"
-      value={searchLogMessage}
-      onChange={(e) => setSearchLogMessage(e.target.value)}
-    />
+  <TextField
+  label="Search Log Message"
+  variant="outlined"
+  size="small"
+  value={searchLogMessage}
+  onChange={(e) => setSearchLogMessage(e.target.value)}
+  style={{  fontSize: '0.8em',width: '120px' }} // Adjust the width as needed
+/>
+
     <FormControl variant="outlined" size="small" style={{ marginLeft: '10px', width: '150px' }}>
-  <InputLabel>Filter by Log Level</InputLabel>
+  <InputLabel  style={{ fontSize: '0.8em' }}>Filter by Log Level</InputLabel>
   <Select
     value={filterLogLevel}
     onChange={(e) => setFilterLogLevel(e.target.value)}
@@ -115,29 +153,48 @@ const LogsTable = () => {
   </Select>
 </FormControl>
 
-    <Button variant="contained" onClick={handleSearch} style={{ marginLeft: '10px' }}>
+    <Button variant="contained" onClick={handleSearch} style={{ fontSize: '0.8em', marginLeft: '10px' }}>
       Search
     </Button>
   </div>
-  <div>
-    <Button variant="contained" component="label">
-      Upload Txt
-      <input type="file" accept="*" hidden onChange={handleFileUpload} />
-    </Button>
-  </div>
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+  <Button variant="contained" component="label" style={{ fontSize: '0.9em', padding: '0.5em' }}>
+    Upload Txt
+    <input type="file" accept="*" hidden onChange={handleFileUpload} />
+  </Button>
+  <Button
+    variant="contained"
+    color="secondary"
+    onClick={handleDeleteAllLogs}
+    style={{ ...deletematchesButtonStyle, fontSize: '0.9em', padding: '0.5em', marginLeft: '10px' }}
+  >
+    Delete All Logs
+  </Button>
+</div>
+
 </div>
 
       <Table>
         <TableHead>
-          <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Timestamp</TableCell>
-            <TableCell>TID</TableCell>
-            <TableCell>PID</TableCell>
-            <TableCell>Log Level</TableCell>
-            <TableCell>Component</TableCell>
-            <TableCell>Log Message</TableCell>
-          </TableRow>
+        <TableRow>
+        <TableCell colSpan={7} align="center" style={{ borderBottom: 'none', paddingTop: '1em' }}>
+  <div style={{ backgroundColor: '#5F9EA0', padding: '0.5em', borderRadius: '5px' }}>
+    <span style={{ fontSize: '0.8em', fontWeight: 'bold' }}>Confirmed Project Name:</span>
+    <span style={{ fontSize: '1.2em', fontWeight: 'bold', marginLeft: '0.5em' }}>{projectName}</span>
+  </div>
+</TableCell>
+
+
+  </TableRow>
+  <TableRow>
+    <TableCell>Date</TableCell>
+    <TableCell>Timestamp</TableCell>
+    <TableCell>TID</TableCell>
+    <TableCell>PID</TableCell>
+    <TableCell>Log Level</TableCell>
+    <TableCell>Component</TableCell>
+    <TableCell>Log Message</TableCell>
+  </TableRow>
         </TableHead>
         <TableBody>
           {isLoading ? (
@@ -163,6 +220,29 @@ const LogsTable = () => {
           )}
         </TableBody>
       </Table>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>Enter Project Name</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter the project name for the uploaded logs.
+          </DialogContentText>
+          <TextField
+            label="Project Name"
+            variant="outlined"
+            size="small"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmProject} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Pagination
         count={Math.ceil(logs.length / logsPerPage)}
         page={currentPage}

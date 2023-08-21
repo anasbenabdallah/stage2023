@@ -48,9 +48,19 @@ async function getUniqueLogsAndCounts(req, res) {
     res.status(500).json({ error: "Error retrieving logs and counts." });
   }
 }
+async function deleteAllBigLogs(req, res) {
+  try {
+    const result = await BigLog.deleteMany({}); // Delete all big logs
 
+    res.json({ message: `${result.deletedCount} big logs deleted.` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error deleting big logs." });
+  }
+}
 
 module.exports = {
   getbigLogs,
   getUniqueLogsAndCounts,
+  deleteAllBigLogs,
 };

@@ -8,8 +8,10 @@ const Log = require("../models/log.model");
 const csv = require("csvtojson");
 const {
   getbigLogs,
+  deleteAllBigLogs,
   getUniqueLogsAndCounts,
   getPatternsAndLogMessages,
+  
 } = require("../controllers/biglog.controller");
 
 //
@@ -33,6 +35,7 @@ const upload = multer({
 biglogRouter.get("/getlogmessage", getUniqueLogsAndCounts);
 
 biglogRouter.get("/getall/:pageNumber", getbigLogs);
+biglogRouter.delete("/delete",deleteAllBigLogs);
 
 biglogRouter.post('/uploadAll', upload.single('txtFile'), async (req, res) => {
   try {

@@ -24,7 +24,7 @@ const LogLevelPieChart = () => {
     { name: "Verbose", value: logLevelCounts.V || 0 },
     { name: "Fatal", value: logLevelCounts.F || 0 }
   ];
-  const COLORS = ["#FF6384", "#36A2EB", "#888888", "#FF5733", "#86b300","#8B0000"];
+  const COLORS = ["#FF6384", "#36A2EB", "#8B008B", "#FF5733", "#006400","#8B0000"];
 
   return (
     <div>
@@ -39,7 +39,7 @@ const LogLevelPieChart = () => {
             paddingAngle={3}
             label={({ cx, cy, midAngle, innerRadius, outerRadius, value, index }) => {
               const RADIAN = Math.PI / 180;
-              const radius = 25 + innerRadius + (outerRadius - innerRadius);
+              const radius = 60 + innerRadius + (outerRadius - innerRadius);
               const x = cx + radius * Math.cos(-midAngle * RADIAN);
               const y = cy + radius * Math.sin(-midAngle * RADIAN);
 

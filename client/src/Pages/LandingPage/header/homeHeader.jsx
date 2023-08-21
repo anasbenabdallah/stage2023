@@ -9,7 +9,7 @@ import {
   Avatar,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import skillriselogo from "../../../../src/images/logo.png";
+import sagem from "../../../../src/images/sagemcom.png";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ const HomeHeader = () => {
     <AppBar position="fixed" variant="outlined" elevation={0}>
       <Toolbar className={classes.toolbar}>
         <Stack flexDirection={"row"} alignItems={"center"} gap={1}>
-          <Avatar src={skillriselogo} style={{ borderRadius: 0 }} />
+          <Avatar src={sagem} style={{ borderRadius: 0 }} />
           <Typography variant="h4" noWrap className={classes.Typography}>
             Sagem
           </Typography>
