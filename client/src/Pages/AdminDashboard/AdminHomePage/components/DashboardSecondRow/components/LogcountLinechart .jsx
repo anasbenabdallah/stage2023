@@ -55,12 +55,7 @@ const LogCountScatterPlot = ({ type }) => {
             }}
           />
           <Tooltip
-            labelFormatter={(value) => `ID: ${value}`} // Customize the label format
-            formatter={(value, name, entry) => [
-              `${entry.payload.count} logs`, // Use entry.payload.count to display the count value
-              name,
-            ]}
-          />
+        cursor={{ strokeDasharray: "3 3" }} />
           <Scatter
             data={data}
             fill="#00FF00" // Green color for the scatter points
