@@ -14,7 +14,8 @@ import {
   Dialog,
   DialogContent,
   Button,
-  CircularProgress,
+
+  Alert,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import EditPopup from "./editlogspopup"; // Import the EditPopup component
@@ -33,6 +34,8 @@ const LogsTable = () => {
   const [currentMatchingPairsPage, setCurrentMatchingPairsPage] = useState(1);
   const [addLogsPopupOpen, setAddLogsPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false); // State to control the alert display
+
   
 
   const handlePageChange = (event, newPage) => {
@@ -57,7 +60,10 @@ const LogsTable = () => {
    ;
 setMatchingPairs(response.data.matchingPairs);
     } catch (error) {
+      window.location.reload();
+
       console.error("Error generating data:", error);
+
     }
     finally {
       setIsLoading(false);
@@ -103,6 +109,10 @@ setMatchingPairs(response.data.matchingPairs);
         // Deletion successful, update matchingPairs state
         setMatchingPairs([]);
         localStorage.setItem("dataDeleted", "true");
+        setShowAlert(true); // Show the alert
+      setTimeout(() => {
+        setShowAlert(false); // Hide the alert after 2 seconds
+      }, 3000);
    
 
       }
@@ -266,19 +276,30 @@ setMatchingPairs(response.data.matchingPairs);
       >
         Delete Matching Pairs
       </Button>
+      {showAlert && (
+        <Alert
+          severity="success"
+          onClose={() => setShowAlert(false)}
+          style={{
+            position: 'fixed',
+            top: '80px', // Adjust the top position as needed
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '350px', // Adjust the width as needed
+            zIndex: 9999,
+          }}
+        >
+          All logs have been deleted successfully.
+        </Alert>
+      )}
         </div>
-        {isLoading ? (
-          <TableRow>
-          <TableCell colSpan={7} align="center">
-            <CircularProgress />
-          </TableCell>
-        </TableRow>
-      ) : (
+        
      <MatchingPairsTables
      matchingPairs={matchingPairs}
      currentMatchingPairsPage={currentMatchingPairsPage}
      matchingPairsPerPage={matchingPairsPerPage}
-     />)}
+     isLoading={isLoading}
+     />
       <Pagination
         count={Math.ceil(matchingPairs.length / matchingPairsPerPage)}
         page={currentMatchingPairsPage}

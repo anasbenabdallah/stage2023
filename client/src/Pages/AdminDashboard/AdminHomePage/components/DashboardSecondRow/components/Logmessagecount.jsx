@@ -13,7 +13,7 @@ import {
 const LogCountsScatterPlot = () => {
   const [logCounts, setLogCounts] = useState([]);
   const [totalLogs, setTotalLogs] = useState(0);
-  const [filterThreshold, setFilterThreshold] = useState(0); // State for filter threshold
+  const [filterThreshold, setFilterThreshold] = useState(50); // State for filter threshold
 
   useEffect(() => {
     axios

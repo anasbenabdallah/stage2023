@@ -5,9 +5,10 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  CircularProgress,
 } from "@mui/material";
 
-const MatchingPairsTable = ({ matchingPairs, currentMatchingPairsPage, matchingPairsPerPage }) => {
+const MatchingPairsTable = ({ matchingPairs, currentMatchingPairsPage, matchingPairsPerPage ,isLoading}) => {
   return (
     <Table>
       <TableHead>
@@ -18,7 +19,14 @@ const MatchingPairsTable = ({ matchingPairs, currentMatchingPairsPage, matchingP
         </TableRow>
       </TableHead>
       <TableBody>
-        {matchingPairs.length === 0 ? (
+      {isLoading && localStorage.getItem("dataDeleted") === "false" ? (
+
+          <TableRow>
+            <TableCell colSpan={3} align="center">
+              <CircularProgress />
+            </TableCell>
+          </TableRow>
+        ) : matchingPairs.length === 0 ? (
           <TableRow>
             <TableCell colSpan={3} align="center">
               No data generated yet.
